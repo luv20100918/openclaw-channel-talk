@@ -78,7 +78,9 @@ openclaw config set channels.channel-talk.accounts.default.botName "Your Bot Nam
 - URL: `http://YOUR_SERVER:18789/webhooks/channel-talk/default`
 - Method: POST
 
-#### Function Endpoint (for commands)
+> ⚠️ **Note:** The Channel Talk Webhook method may not work reliably in many cases. It appears to be primarily designed for customer support scenarios. **For team internal chat bot usage, we recommend using the Function (Command) method below.**
+
+#### Function Endpoint (for commands) - Recommended
 1. Go to Channel Talk → App Store → Custom Function
 2. Create a new function
 3. Function URL: `http://YOUR_SERVER:18789/functions/channel-talk/default`
