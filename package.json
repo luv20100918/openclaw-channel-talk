@@ -1,6 +1,6 @@
 {
   "name": "@luv20100918/openclaw-channel-talk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Channel Talk (채널톡) integration for OpenClaw - Connect your AI assistant to Channel Talk team chats and customer conversations",
   "keywords": [
     "openclaw",
@@ -40,14 +40,19 @@
     "openclaw": ">=2026.2.0"
   },
   "openclaw": {
-    "extensions": ["./index.ts"],
+    "extensions": [
+      "./index.ts"
+    ],
     "channel": {
       "id": "channel-talk",
       "label": "Channel Talk",
       "selectionLabel": "Channel Talk (채널톡)",
       "docsPath": "/channels/channel-talk",
       "blurb": "Channel Talk customer messaging integration.",
-      "aliases": ["ct", "channeltalk"]
+      "aliases": [
+        "ct",
+        "channeltalk"
+      ]
     }
   },
   "engines": {
