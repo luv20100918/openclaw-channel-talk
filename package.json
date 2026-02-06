@@ -1,0 +1,56 @@
+{
+  "name": "@openclaw/channel-talk",
+  "version": "1.0.0",
+  "description": "Channel Talk (채널톡) integration for OpenClaw - Connect your AI assistant to Channel Talk team chats and customer conversations",
+  "keywords": [
+    "openclaw",
+    "channel-talk",
+    "채널톡",
+    "chatbot",
+    "ai",
+    "customer-support",
+    "messaging",
+    "openclaw-extension"
+  ],
+  "homepage": "https://github.com/luv20100918/openclaw-channel-talk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luv20100918/openclaw-channel-talk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luv20100918/openclaw-channel-talk/issues"
+  },
+  "license": "MIT",
+  "author": "luv20100918 <luv20100918@gmail.com>",
+  "type": "module",
+  "main": "./index.ts",
+  "files": [
+    "src/",
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "prepublishOnly": "echo 'Publishing @openclaw/channel-talk'"
+  },
+  "devDependencies": {
+    "openclaw": "workspace:*"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.2.0"
+  },
+  "openclaw": {
+    "extensions": ["./index.ts"],
+    "channel": {
+      "id": "channel-talk",
+      "label": "Channel Talk",
+      "selectionLabel": "Channel Talk (채널톡)",
+      "docsPath": "/channels/channel-talk",
+      "blurb": "Channel Talk customer messaging integration.",
+      "aliases": ["ct", "channeltalk"]
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "channel-talk",
+  "channels": ["channel-talk"],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
