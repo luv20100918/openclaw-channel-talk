@@ -27,7 +27,7 @@ npm install
 Or install via npm:
 
 ```bash
-npm install @openclaw/channel-talk
+npm install @luv20100918/openclaw-channel-talk
 ```
 
 ## Configuration
