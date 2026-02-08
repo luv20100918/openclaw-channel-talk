@@ -1,6 +1,6 @@
 # OpenClaw Channel Talk Extension
 
-[![npm version](https://img.shields.io/npm/v/@luv20100918/openclaw-channel-talk.svg)](https://www.npmjs.com/package/@luv20100918/openclaw-channel-talk)
+[![npm version](https://img.shields.io/npm/v/@luv20100918/channel-talk.svg)](https://www.npmjs.com/package/@luv20100918/channel-talk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Channel Talk (채널톡) integration for OpenClaw - Connect your AI assistant to Channel Talk team chats and customer conversations.
@@ -27,7 +27,7 @@ npm install
 Or install via npm:
 
 ```bash
-npm install @luv20100918/openclaw-channel-talk
+npm install @luv20100918/channel-talk
 ```
 
 ## Configuration
