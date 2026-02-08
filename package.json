@@ -1,6 +1,6 @@
 {
   "name": "@luv20100918/channel-talk",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Channel Talk (채널톡) integration for OpenClaw - Connect your AI assistant to Channel Talk team chats and customer conversations",
   "keywords": [
     "openclaw",
