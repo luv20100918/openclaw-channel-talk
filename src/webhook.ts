@@ -12,6 +12,8 @@
  */
 
 import type { IncomingMessage, ServerResponse } from "node:http";
+import type { OpenClawConfig } from "openclaw/plugin-sdk";
+import { createReplyPrefixOptions } from "openclaw/plugin-sdk";
 import { getRuntime, getChannelTalkApi } from "./runtime.js";
 import { sendMessage, blocksToText, type ChannelTalkCredentials } from "./api.js";
 
@@ -188,7 +190,7 @@ export async function processWebhookEvent(
 
   const runtime = getRuntime();
   const api = getChannelTalkApi();
-  const cfg = api.config;
+  const cfg = api.config as OpenClawConfig;
 
   // Check pairing status - try to use runtime pairing system
   const account = cfg.channels?.["channel-talk"]?.accounts?.[target.accountId] ?? {};
@@ -255,9 +257,18 @@ export async function processWebhookEvent(
     },
   });
 
+  // Format body with sender/timestamp envelope (matches Twitch/Telegram pattern)
+  const body = runtime.channel.reply.formatAgentEnvelope({
+    channel: "Channel Talk",
+    from: senderName,
+    timestamp: message.createdAt ?? Date.now(),
+    envelope: runtime.channel.reply.resolveEnvelopeFormatOptions(cfg),
+    body: rawBody,
+  });
+
   // Build inbound message context
   const ctxPayload = runtime.channel.reply.finalizeInboundContext({
-    Body: rawBody,
+    Body: body,
     RawBody: rawBody,
     CommandBody: rawBody,
     BodyForAgent: rawBody,
@@ -302,11 +313,20 @@ export async function processWebhookEvent(
     },
   });
 
+  // Build reply prefix options (matches Twitch/Telegram pattern)
+  const { onModelSelected, ...prefixOptions } = createReplyPrefixOptions({
+    cfg,
+    agentId: route.agentId,
+    channel: "channel-talk",
+    accountId: target.accountId,
+  });
+
   // Dispatch through agent pipeline, delivering reply via Channel Talk API
   await runtime.channel.reply.dispatchReplyWithBufferedBlockDispatcher({
     ctx: ctxPayload,
     cfg,
     dispatcherOptions: {
+      ...prefixOptions,
       deliver: async (payload: { text?: string; mediaUrl?: string }) => {
         const text = payload.text?.trim();
         if (!text) return;
@@ -325,6 +345,9 @@ export async function processWebhookEvent(
           `[channel-talk:${target.accountId}] agent error: ${String(err)}`,
         );
       },
+    },
+    replyOptions: {
+      onModelSelected,
     },
   });
 }
