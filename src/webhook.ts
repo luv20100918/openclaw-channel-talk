@@ -281,6 +281,27 @@ export async function processWebhookEvent(
     ...(isGroupChat ? { GroupSubject: `team-chat:${chatId}` } : {}),
   });
 
+  // Record session so messages appear in OpenClaw TUI
+  const storePath = runtime.channel.session.resolveStorePath(cfg.session?.store, {
+    agentId: route.agentId,
+  });
+  await runtime.channel.session.recordInboundSession({
+    storePath,
+    sessionKey: ctxPayload.SessionKey ?? route.sessionKey,
+    ctx: ctxPayload,
+    updateLastRoute: !isGroupChat
+      ? {
+          sessionKey: route.sessionKey,
+          channel: "channel-talk",
+          to: `channel-talk:${chatId}`,
+          accountId: target.accountId,
+        }
+      : undefined,
+    onRecordError: (err) => {
+      target.log?.error?.(`[channel-talk:${target.accountId}] session record error: ${String(err)}`);
+    },
+  });
+
   // Dispatch through agent pipeline, delivering reply via Channel Talk API
   await runtime.channel.reply.dispatchReplyWithBufferedBlockDispatcher({
     ctx: ctxPayload,
